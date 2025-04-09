@@ -39,7 +39,7 @@ Function Get-Specifications {
                         @{Name="Tipo de disco"; Expression={(Get-PhysicalDisk).MediaType}}
 
     
-    #pause
+    pause
 }
 
 Get-Specifications
