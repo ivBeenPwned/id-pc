@@ -7,8 +7,8 @@ Function Get-Specifications {
     Get-WmiObject -Class Win32_Baseboard | 
         Format-Table @{Name="Placa Mae"; Expression={$_.Product}},
                       @{Name="Serial"; Expression={$_.SerialNumber}},
-                       @{Name="Capacidade Máxima de RAM"; Expression={[math]::round((Get-WmiObject -Class Win32_PhysicalMemoryArray).MaxCapacity/1MB,0)}},
-                        @{Name="Quantidade de Slots RAM"; Expression={(Get-WmiObject -Class Win32_PhysicalMemoryArray).MemoryDevices}}
+                       @{Name="Max. RAM (GB)"; Expression={[math]::round((Get-WmiObject -Class Win32_PhysicalMemoryArray).MaxCapacity/1MB,0)}},
+                        @{Name="Max. RAM (Slots)"; Expression={(Get-WmiObject -Class Win32_PhysicalMemoryArray).MemoryDevices}}
     
     Get-WmiObject -Class Win32_Processor | 
         Format-Table @{Name="Processador"; Expression={$_.Name}},
