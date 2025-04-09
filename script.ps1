@@ -2,13 +2,13 @@ Function Get-Specifications {
     
     $Spacing=@{Name="|"; Expression={Write-Output "|"}}
 
-    Get-WmiObject -ClassName win32_ComputerSystem -ErrorAction SilentlyContinue | 
+    Get-WmiObject -ClassName win32_ComputerSystem | 
         Format-Table @{Name="Hostname"; Expression={$_.Name}},$Spacing,
                       @{Name="Fabricante"; Expression={$_.Manufacturer}}
     
     Get-WmiObject -Class Win32_Baseboard | 
         Format-Table @{Name="Placa Mae"; Expression={$_.Product}},$Spacing,
-                      @{Name="Serial"; Expression={$_.SerialNumber}},$Spacing,
+                      @{Name="Fabricante"; Expression={$_.Manufacturer}},$Spacing,
                        @{Name="Max. RAM (GB)"; Expression={[math]::round((Get-WmiObject -Class Win32_PhysicalMemoryArray).MaxCapacity/1MB,0)}},$Spacing,
                         @{Name="Max. RAM (Slots)"; Expression={(Get-WmiObject -Class Win32_PhysicalMemoryArray).MemoryDevices}}
     
@@ -28,7 +28,9 @@ Function Get-Specifications {
                          elseif($_.SMBIOSMemoryType -eq 24){Write-Output "DDR3"}
                          elseif($_.SMBIOSMemoryType -eq 21){Write-Output "DDR2"}
                         else{Write-Output "Indeterminado"}
-                        }}                      
+                        }},$Spacing,
+                         @{Name="Fabricante"; Expression={$_.Manufacturer}},$Spacing,
+                          @{Name="Numero do modelo"; Expression={$_.PartNumber}}                      
     
     Get-WmiObject -Class Win32_LogicalDisk |  
         Format-Table @{Name="Unidade"; Expression={$_.Name}},$Spacing,
@@ -37,7 +39,7 @@ Function Get-Specifications {
                         @{Name="Tipo de disco"; Expression={(Get-PhysicalDisk).MediaType}}
 
     
-    pause
+    #pause
 }
 
 Get-Specifications
