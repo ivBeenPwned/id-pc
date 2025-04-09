@@ -5,8 +5,8 @@ Function Get-Specifications {
                       @{Name="Fabricante"; Expression={$_.Manufacturer}}
     
     Get-WmiObject -Class Win32_Baseboard | 
-        Format-Table @{Name="PLACA MAE"; Expression={$_.Product}},
-                      @{Name="Número de série"; Expression={$_.SerialNumber}}
+        Format-Table @{Name="Placa Mae"; Expression={$_.Product}},
+                      @{Name="Serial"; Expression={$_.SerialNumber}}
     
     Get-WmiObject -Class Win32_Processor | 
         Format-Table @{Name="Processador"; Expression={$_.Name}},
